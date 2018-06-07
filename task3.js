@@ -22,4 +22,4 @@ var a = process.argv[2];
 var b = process.argv[3];
 var time = addTimes(a,b);
 
-console.log(time[0] + ' ' + time[1] + ' ' + time[2] + ' ' + time[3])
+console.log(time[0] + ' ' + time[1] + ' ' + time[2] + ' ' + time[3]);
