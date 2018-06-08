@@ -6,20 +6,24 @@ function declineOfNumber (number, str1, str2, str3) {
 }
 
 function addTimes(firstTime, secondTime) {
-	var time = parseInt(firstTime) + parseInt(secondTime);
-	var days = Math.floor(time / (60*60*24));
-	var hours = Math.floor((time - days*60*60*24) / (60*60));
-	var minutes = Math.floor((time - hours*60*60 - days*60*60*24) / 60);
-	var seconds = time % 60;
-	var textDays = declineOfNumber(days,' день',' дня',' дней');
-	var textHours = declineOfNumber(hours,' час',' часа',' часов');
-	var textMinutes = declineOfNumber(minutes, ' минута',' минуты',' минут');
-	var textSeconds = declineOfNumber(seconds ,' секунда',' секунды',' секунд');
-	return [days + textDays , hours + textHours , minutes + textMinutes , seconds + textSeconds];
+	var sumTime = parseInt(firstTime) + parseInt(secondTime);
+	var hours = Math.floor(sumTime / 3600);
+	var minutes = Math.floor((sumTime - hours*3600) / 60);
+	var seconds = sumTime % 60;
+	var time = {
+		hours: hours,
+		minutes: minutes,
+		seconds: seconds,
+		textHours: declineOfNumber(hours,' час',' часа',' часов'),
+		textMinutes: declineOfNumber(minutes, ' минута',' минуты',' минут'),
+		textSeconds: declineOfNumber(seconds ,' секунда',' секунды',' секунд'),
+	};
+	if ((time.hours === 0) && (time.minutes === 0)) return '' + time.seconds + time.textSeconds;
+	if ((time.hours === 0) && (time.minutes != 0)) return  time.minutes + time.textMinutes +' ' + time.seconds + time.textSeconds;
+	return time.hours + time.textHours + ' ' + time.minutes + time.textMinutes +' ' + time.seconds + time.textSeconds;
 }
 
 var a = process.argv[2];
 var b = process.argv[3];
-var time = addTimes(a,b);
 
-console.log(time[0] + ' ' + time[1] + ' ' + time[2] + ' ' + time[3]);
+console.log(addTimes(a,b));
